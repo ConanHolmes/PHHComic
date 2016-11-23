@@ -34,6 +34,7 @@ public class DownLoadService extends IntentService{
     private String mDownloadUrl;
     private Notification notification;
     private NotificationManager notificationManager;
+    int i;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -73,10 +74,6 @@ public class DownLoadService extends IntentService{
         builder.setAutoCancel(true);
         builder.setWhen(System.currentTimeMillis());
         builder.setContentText(content);
-        if (progress >= 100) {
-            //下载完成
-            builder.setContentIntent(getInstallIntent());
-        }
         notification = builder.build();
         notificationManager.notify(0, notification);
     }
@@ -93,13 +90,20 @@ public class DownLoadService extends IntentService{
             notifyMsg("温馨提醒", "文件下载失败", 0);
             stopSelf();
         }
+        File file2 = new File(SDCardHelper.getSDCardPublicDir(DIRECTORY_DOWNLOADS) + File.separator+"download.apk");
+        if(file2.exists()){
+            notifyMsg("温馨提醒", "文件已下载", 0);
+            Toast.makeText(this, "文件已下载", Toast.LENGTH_SHORT).show();
+            stopSelf();
+        }
         mDownloadUrl=intent.getStringExtra("key");
         notifyMsg("温馨提醒", "开始下载", 0);
         HttpURLConnection conn = null;
         InputStream is = null;
-        File file = Environment.getExternalStoragePublicDirectory("Download");
+        File file = new File(SDCardHelper.getSDCardPublicDir(DIRECTORY_DOWNLOADS));
         // 指定存放图片的路径及图片的名称
         File newFile = new File(file, "download.apk");
+        FileOutputStream fos=null;
         try {
             URL url = new URL(mDownloadUrl);
             conn = (HttpURLConnection) url.openConnection();
@@ -111,13 +115,17 @@ public class DownLoadService extends IntentService{
             conn.connect();
             if (conn.getResponseCode() == 200) {
                 is = conn.getInputStream();
-                byte[] buff = new byte[100];
+                byte[] buff = new byte[1024*10];
                 int len;
-                // 将下载的图片写入到 SD 卡中
-                FileOutputStream fos = new FileOutputStream(newFile);
+                fos = new FileOutputStream(newFile);
+                int contentLength = conn.getContentLength();
                 while ((len = is.read(buff)) != -1) {
+                    i=i+len;
+                    int progress=i*100/contentLength;
+                    notifyMsg("我们的漫画","正在下载",progress);
                     fos.write(buff, 0, len);
                 }
+                fos.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,12 +135,14 @@ public class DownLoadService extends IntentService{
                 try {
                     conn.disconnect();
                     is.close();
+                    fos.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
             }
         }
+        notifyMsg("我们的漫画","下载完成",0);
         getInstallIntent();
     }
 
@@ -143,7 +153,7 @@ public class DownLoadService extends IntentService{
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setDataAndType(Uri.parse("file://" + file.getAbsolutePath()), "application/vnd.android.package-archive");
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);*/
-        File file = new File(SDCardHelper.getSDCardPublicDir(DIRECTORY_DOWNLOADS) + "download.apk");
+        File file = new File(SDCardHelper.getSDCardPublicDir(DIRECTORY_DOWNLOADS) + File.separator+"download.apk");
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(android.content.Intent.ACTION_VIEW);
