@@ -10,6 +10,7 @@ public class URLConstants {
     public static final String BASE_IMAGE_URL="http://static.moyougames.com/";
 
     public static final String FIND_SEARCH_TITLE_URL= "http://api.lookmanhua.com/customized/keysearch";
+    public static final String URL_ISUPDATE_DATA="http://oh0vbg8a6.bkt.clouddn.com/versioncheck.json";
 
 
     public static final String FIND_SEARCH_URL="http://api.lookmanhua.com/lists/search?page=1&size=100&from=4&key=%s";

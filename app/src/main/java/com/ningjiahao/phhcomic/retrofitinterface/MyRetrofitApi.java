@@ -6,6 +6,7 @@ import com.ningjiahao.phhcomic.bean.FansBean;
 import com.ningjiahao.phhcomic.bean.FindContentTitleBean;
 import com.ningjiahao.phhcomic.bean.FindSearchTitleBean;
 import com.ningjiahao.phhcomic.bean.HotRankBean;
+import com.ningjiahao.phhcomic.bean.IsUpdateBean;
 import com.ningjiahao.phhcomic.bean.ManHuaBean;
 import com.ningjiahao.phhcomic.bean.ManHuaChapterBean;
 import com.ningjiahao.phhcomic.bean.ManHuaDetailBean;
@@ -51,6 +52,8 @@ public interface MyRetrofitApi {
 
     @GET
     Observable<FindSearchTitleBean>getFindSearchTitle(@Url String url);
+    @GET
+    Observable<IsUpdateBean>getIsUpdateBean(@Url String url);
 
 
     @GET

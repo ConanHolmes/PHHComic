@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.ningjiahao.phhcomic.ILoadSearchData;
 import com.ningjiahao.phhcomic.R;
 
+import com.ningjiahao.phhcomic.activity.ManHuaDetailActivity;
 import com.ningjiahao.phhcomic.bean.FindContentTitleBean;
 import com.ningjiahao.phhcomic.bean.SearchDefaultBean;
 import com.ningjiahao.phhcomic.bean.SearchResultBean;
@@ -83,21 +84,12 @@ public class SearchAdapter extends RecyclerView.Adapter{
             case TYPE1:
                 view=mInflater.inflate(R.layout.item1_search,parent,false);
                return new ViewHolder1(view);
-
-
-
-
             case TYPE2:
                 view=mInflater.inflate(R.layout.item_search_result,parent,false);
                 return new ViewHolder2(view);
-
-
             case TYPE3:
                 view=mInflater.inflate(R.layout.item_search_default,parent,false);
                 return new ViewHolder3(view);
-
-
-
         }
 
 return null;
@@ -107,18 +99,14 @@ return null;
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolder1) {
-
             ((ViewHolder1)holder).editText_search.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 }
-
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                     search=((ViewHolder1)holder).editText_search.getEditableText().toString();
                 }
-
                 @Override
                 public void afterTextChanged(Editable editable) {
 
@@ -201,14 +189,7 @@ return null;
                                 ((ViewHolder3)holder).textView_score.setText(((SearchResultBean.CBean.SBean)(mList.get(index))).getScore());
 
                         }
-            ((ViewHolder3)holder).itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-
-
-                }
-            });
 
         }
 
@@ -268,6 +249,12 @@ return null;
             textView_score= (TextView) itemView.findViewById(R.id.textview_search_default_score);
             textView_name= (TextView) itemView.findViewById(R.id.textview_search_default_name);
             textView_partname= (TextView) itemView.findViewById(R.id.textview_search_default_partname);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
 
         }

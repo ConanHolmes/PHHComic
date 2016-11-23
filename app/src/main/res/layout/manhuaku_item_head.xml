@@ -24,7 +24,7 @@
     </RelativeLayout>
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:orientation="horizontal"
         android:background="@color/white">
         <RadioButton
@@ -32,29 +32,32 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:drawableTop="@mipmap/z_project"
             android:button="@null"
             android:drawablePadding="0dp"
-            android:text="专题"/>
+            android:text="专题"
+            android:textSize="12sp"/>
         <RadioButton
             android:id="@+id/manhuaku_radio_rank"
+            android:textSize="12sp"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:button="@null"
             android:drawablePadding="0dp"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:drawableTop="@mipmap/z_ranking"
             android:text="排行榜"/>
         <RadioButton
             android:id="@+id/manhuaku_radio_update"
+            android:textSize="12sp"
             android:gravity="center"
             android:layout_weight="1"
             android:button="@null"
             android:layout_width="0dp"
             android:drawablePadding="0dp"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:drawableTop="@mipmap/z_update"
             android:text="更新"/>
     </RadioGroup>

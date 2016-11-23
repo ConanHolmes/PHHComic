@@ -3,6 +3,7 @@
     package="com.ningjiahao.phhcomic">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
@@ -77,6 +78,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.UpdateActivity" />
+
         <activity android:name=".activity.RedNewManHuaActivity" />
         <activity android:name=".activity.ManHuaRankActivity" />
         <activity android:name=".activity.SpcialListActivity" />
@@ -95,6 +97,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".service.DownLoadService"/>
 
     </application>
 

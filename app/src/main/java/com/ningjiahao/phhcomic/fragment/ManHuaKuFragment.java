@@ -1,9 +1,11 @@
 package com.ningjiahao.phhcomic.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +20,7 @@ import com.ningjiahao.phhcomic.adapter.ManHuaKuRecyclerAdapter;
 import com.ningjiahao.phhcomic.base.BaseFragment;
 import com.ningjiahao.phhcomic.bean.ManHuaKuBean;
 import com.ningjiahao.phhcomic.config.URLConstants;
+import com.ningjiahao.phhcomic.interfaces.GetPartId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +43,17 @@ public class ManHuaKuFragment extends BaseFragment {
     private int justone = 1;
     private boolean flag = true;
     private ManHuaKuRecyclerAdapter mManHuaKuRecyclerAdapter;
+    private GetPartId getPartId;
+
 
     public ManHuaKuFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        getPartId= (GetPartId) context;
     }
 
     @Override
@@ -93,7 +104,7 @@ public class ManHuaKuFragment extends BaseFragment {
         manhuaku_list.addAll(topic);
         manhuaku_list.add(zhuanti);
         manhuaku_list.addAll(special);
-        mManHuaKuRecyclerAdapter = new ManHuaKuRecyclerAdapter(mContext, manhuaku_list, carousel, topic, special);
+        mManHuaKuRecyclerAdapter = new ManHuaKuRecyclerAdapter(mContext, manhuaku_list, carousel, topic, special,getPartId);
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, 3);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

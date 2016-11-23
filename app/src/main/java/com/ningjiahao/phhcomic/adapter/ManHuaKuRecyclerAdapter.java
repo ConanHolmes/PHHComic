@@ -2,6 +2,8 @@ package com.ningjiahao.phhcomic.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +29,12 @@ import com.ningjiahao.phhcomic.activity.WebActivity;
 import com.ningjiahao.phhcomic.bean.ManHuaKuBean;
 import com.ningjiahao.phhcomic.bean.RedNewBean;
 import com.ningjiahao.phhcomic.config.URLConstants;
+import com.ningjiahao.phhcomic.fragment.FindFragment;
+import com.ningjiahao.phhcomic.fragment.ManHuaKuFragment;
+import com.ningjiahao.phhcomic.fragment.QuanZiFragment;
+import com.ningjiahao.phhcomic.fragment.XiaoWoFragment;
 import com.ningjiahao.phhcomic.helper.RecyclerViewAdapterHelper;
+import com.ningjiahao.phhcomic.interfaces.GetPartId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,14 +69,16 @@ public class ManHuaKuRecyclerAdapter extends RecyclerViewAdapterHelper<Object> {
     private ADRunnable adrun = new ADRunnable();
     private List<ManHuaKuBean.CBean.SpecialBean> specialData;
     public static int j;
-
+    private FragmentManager fragmentManager;
+    private GetPartId getPartId;
     public ManHuaKuRecyclerAdapter(Context context, List<Object> list, List<ManHuaKuBean.CBean.CarouselBean> pagerData,
-                                   List<ManHuaKuBean.CBean.TopicBean> itemRecycler, List<ManHuaKuBean.CBean.SpecialBean> specialData) {
+                                   List<ManHuaKuBean.CBean.TopicBean> itemRecycler, List<ManHuaKuBean.CBean.SpecialBean> specialData,GetPartId getPartId) {
 
         super(context, list);
         this.specialData = specialData;
         this.pagerData = pagerData;
         this.itemRecycler = itemRecycler;
+        this.getPartId=getPartId;
     }
 
     @Override
@@ -347,21 +356,26 @@ public class ManHuaKuRecyclerAdapter extends RecyclerViewAdapterHelper<Object> {
                         case "最热漫画":
                             intent.putExtra("key","最热漫画");
                             intent.setClass(mContext,RedNewManHuaActivity.class);
+                            mContext.startActivity(intent);
                             break;
                         case "最新漫画":
                             intent.putExtra("key","最新漫画");
                             intent.setClass(mContext,RedNewManHuaActivity.class);
+                            mContext.startActivity(intent);
                             break;
                         case "每日更新":
                             intent.setClass(mContext,UpdateActivity.class);
+                            mContext.startActivity(intent);
                             break;
                         case "漫画题材":
+                            getPartId.getPartid(4);
                             break;
                         case "专题":
                             intent.setClass(mContext,SpcialListActivity.class);
+                            mContext.startActivity(intent);
                             break;
                     }
-                    mContext.startActivity(intent);
+
                 }
             });
         }
